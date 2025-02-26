@@ -150,23 +150,105 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Forgot Password")),
-      body: Center(child: Text("Reset Password Feature Coming Soon", style: TextStyle(fontSize: 18))),
-    );
-  }
-}
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(title: Text("Home")), body: Center(child: Text("Welcome Home", style: TextStyle(fontSize: 24))));
+  }
+}
+
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
+
+  @override
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  void _submitEmail() {
+    if (_formKey.currentState!.validate()) {
+      Fluttertoast.showToast(msg: "Email verified. Proceed to set new password.");
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const SetPasswordScreen()));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Forgot Password")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: "Email"),
+                validator: (value) => value!.contains('@') ? null : "Enter a valid email",
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(onPressed: _submitEmail, child: const Text("Submit")),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SetPasswordScreen extends StatefulWidget {
+  const SetPasswordScreen({super.key});
+
+  @override
+  _SetPasswordScreenState createState() => _SetPasswordScreenState();
+}
+
+class _SetPasswordScreenState extends State<SetPasswordScreen> {
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  void _setPassword() {
+    if (_formKey.currentState!.validate()) {
+      Fluttertoast.showToast(msg: "Password reset successful");
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Set New Password")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(labelText: "New Password"),
+                validator: (value) => value!.length >= 6 ? null : "Password too short",
+              ),
+              TextFormField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(labelText: "Confirm Password"),
+                validator: (value) => value == _passwordController.text ? null : "Passwords do not match",
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(onPressed: _setPassword, child: const Text("Reset Password")),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
