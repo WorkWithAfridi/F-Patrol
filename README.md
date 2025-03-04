@@ -1,16 +1,12 @@
-# f_patrol
+FPatrol - Flutter App with Patrol Integration Testing
 
-A new Flutter project.
+Overview
+FPatrol is a Flutter application that demonstrates complete user authentication flow with robust integration testing using Patrol. It covers:
+Splash Screen navigation
+Sign In validation and authentication
+Sign Up process
+Forgot Password & Password Reset
+Home Screen Verification
 
-## Getting Started
+This project is designed to showcase Patrol as a powerful testing tool for seamless UI automation in Flutter applications.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
